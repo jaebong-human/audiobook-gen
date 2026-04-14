@@ -145,11 +145,13 @@ export const getVoiceName = async (
   return voices[0].voice_name;
 };
 
+import type { WordTimestamp } from "../src/lib/types";
+
 export const generateVoiceTypecast = async (
   text: string,
   voiceId: string,
   outputPath: string,
-): Promise<void> => {
+): Promise<WordTimestamp[]> => {
 
   const audio = await typecastClient.textToSpeech({
     text,
@@ -159,4 +161,26 @@ export const generateVoiceTypecast = async (
   });
 
   await fs.promises.writeFile(outputPath, new Uint8Array(audio.audioData));
+
+  return transcribeAudio(outputPath);
+};
+
+export const transcribeAudio = async (
+  audioPath: string,
+): Promise<WordTimestamp[]> => {
+  const OpenAI = (await import("openai")).default;
+  const openai = new OpenAI({ apiKey: openaiApiKey! });
+  const transcription = await openai.audio.transcriptions.create({
+    file: fs.createReadStream(audioPath),
+    model: "whisper-1",
+    response_format: "verbose_json",
+    timestamp_granularities: ["word"],
+  });
+
+  const words = (transcription as unknown as { words?: WordTimestamp[] }).words;
+  if (!words || words.length === 0) {
+    throw new Error("Whisper did not return word-level timestamps");
+  }
+
+  return words;
 };

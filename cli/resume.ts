@@ -15,6 +15,7 @@ import {
   setTypecastClient,
   generateAiImage,
   generateVoiceTypecast,
+  transcribeAudio,
 } from "./service";
 import type { StoryDescriptor } from "../src/lib/types";
 import { execSync } from "child_process";
@@ -117,11 +118,22 @@ async function main() {
 
       // Audio
       if (fs.existsSync(audioPath) && fs.statSync(audioPath).size > 100) {
-        console.log(chalk.gray(`  [${i + 1}/${total}] Audio exists, skipping`));
+        if (!item.wordTimestamps || item.wordTimestamps.length === 0) {
+          const spinner = ora(`  [${i + 1}/${total}] Transcribing existing audio...`).start();
+          try {
+            item.wordTimestamps = await transcribeAudio(audioPath);
+            spinner.succeed(chalk.green(`  [${i + 1}/${total}] Transcription complete`));
+          } catch (err) {
+            spinner.fail(chalk.red(`  [${i + 1}/${total}] Transcription failed: ${err}`));
+            throw err;
+          }
+        } else {
+          console.log(chalk.gray(`  [${i + 1}/${total}] Audio exists, skipping`));
+        }
       } else {
         const spinner = ora(`  [${i + 1}/${total}] Generating voice...`).start();
         try {
-          await generateVoiceTypecast(
+          item.wordTimestamps = await generateVoiceTypecast(
             item.text,
             descriptor.voiceId,
             audioPath,
@@ -146,6 +158,7 @@ async function main() {
       scenes: descriptor.content.map((item) => ({
         image: `content/${slug}/images/${item.uid}.png`,
         audio: `content/${slug}/audio/${item.uid}.mp3`,
+        wordTimestamps: item.wordTimestamps || [],
       })),
     });
   }

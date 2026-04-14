@@ -15,10 +15,17 @@ export const StoryWithImages = z.object({
 });
 export type StoryWithImages = z.infer<typeof StoryWithImages>;
 
+export type WordTimestamp = {
+  word: string;
+  start: number;
+  end: number;
+};
+
 export type ContentItemWithDetails = {
   text: string;
   imageDescription: string;
   uid: string;
+  wordTimestamps: WordTimestamp[];
 };
 
 export type StoryDescriptor = {

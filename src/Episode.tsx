@@ -34,7 +34,7 @@ export const Episode: React.FC<EpisodeProps> = ({
               durationInFrames={sceneDurations[i] + gapDuration}
               premountFor={fps}
             >
-              <StoryScene image={scene.image} audio={scene.audio} />
+              <StoryScene image={scene.image} audio={scene.audio} wordTimestamps={scene.wordTimestamps} />
             </Series.Sequence>
           </React.Fragment>
         ))}

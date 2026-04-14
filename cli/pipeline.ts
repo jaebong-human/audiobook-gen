@@ -128,6 +128,7 @@ export async function runPipeline(options: PipelineOptions) {
       text: item.text,
       imageDescription: item.imageDescription,
       uid: uuidv4(),
+      wordTimestamps: [],
     };
     descriptor.content.push(contentItem);
   }
@@ -156,14 +157,14 @@ export async function runPipeline(options: PipelineOptions) {
     }
 
     mediaSpinner.text = `[${i * 2 + 2}/${totalSteps}] Generating voice: ${item.text.substring(0, 40)}...`;
-    await generateVoiceTypecast(
+    item.wordTimestamps = await generateVoiceTypecast(
       item.text,
       voiceId,
       contentFs.getAudioPath(item.uid),
     );
-  }
 
-  contentFs.saveDescriptor(descriptor);
+    contentFs.saveDescriptor(descriptor);
+  }
   mediaSpinner.succeed(chalk.green("Images and voice generated!"));
 
   // Update public/episodes.json
@@ -208,6 +209,7 @@ function updateEpisodesJson(descriptor: StoryDescriptor, slug: string) {
     scenes: descriptor.content.map((item) => ({
       image: `content/${slug}/images/${item.uid}.png`,
       audio: `content/${slug}/audio/${item.uid}.mp3`,
+      wordTimestamps: item.wordTimestamps,
     })),
   });
 
