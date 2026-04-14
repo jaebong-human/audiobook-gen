@@ -1,0 +1,44 @@
+[
+  {
+    "id": "the-night-shift",
+    "title": {
+      "white": "THE",
+      "red": "NIGHT SHIFT"
+    },
+    "voiceActor": "Jeff",
+    "scenes": [
+      {
+        "image": "content/the-night-shift/images/8e706642-8d55-4bf2-a5ec-37e9877819f5.png",
+        "audio": "content/the-night-shift/audio/8e706642-8d55-4bf2-a5ec-37e9877819f5.mp3"
+      },
+      {
+        "image": "content/the-night-shift/images/db623f00-c5d7-435e-9cc0-ea9dde3f3c2b.png",
+        "audio": "content/the-night-shift/audio/db623f00-c5d7-435e-9cc0-ea9dde3f3c2b.mp3"
+      },
+      {
+        "image": "content/the-night-shift/images/15d0f43f-fb06-422b-9f4e-9c3b4de6dfc3.png",
+        "audio": "content/the-night-shift/audio/15d0f43f-fb06-422b-9f4e-9c3b4de6dfc3.mp3"
+      },
+      {
+        "image": "content/the-night-shift/images/05861976-7b5e-4b44-8a1d-872192b69c60.png",
+        "audio": "content/the-night-shift/audio/05861976-7b5e-4b44-8a1d-872192b69c60.mp3"
+      },
+      {
+        "image": "content/the-night-shift/images/7b4d65f7-0a8d-4823-8bf4-040c3b003a88.png",
+        "audio": "content/the-night-shift/audio/7b4d65f7-0a8d-4823-8bf4-040c3b003a88.mp3"
+      },
+      {
+        "image": "content/the-night-shift/images/01b6aab9-b46c-4a91-b9d3-ea767cdc6a03.png",
+        "audio": "content/the-night-shift/audio/01b6aab9-b46c-4a91-b9d3-ea767cdc6a03.mp3"
+      },
+      {
+        "image": "content/the-night-shift/images/67ec99f9-7dee-466f-818f-4d82e8eb1604.png",
+        "audio": "content/the-night-shift/audio/67ec99f9-7dee-466f-818f-4d82e8eb1604.mp3"
+      },
+      {
+        "image": "content/the-night-shift/images/e0361ec0-f8d2-4586-b9ed-601c0ecda185.png",
+        "audio": "content/the-night-shift/audio/e0361ec0-f8d2-4586-b9ed-601c0ecda185.mp3"
+      }
+    ]
+  }
+]
